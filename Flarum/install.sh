@@ -15,7 +15,7 @@ echo ""
 read -p 'set MySQL Password: ' mysql_password
 #
 yum update -y
-yum install nano zip unzip wget curl httpd firewalld sudo -y
+yum install nano zip unzip wget curl httpd firewalld sudo sed -y
 #
 systemctl start httpd.service
 systemctl enable httpd.service
@@ -44,7 +44,6 @@ yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php
 #
 sudo systemctl start mysqld
 sudo systemctl enable mysqld
-mysql_secure_installation -y
 #
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE User = 'root'"
 mysql -e "DROP USER ''@'localhost'"
@@ -59,7 +58,14 @@ php -r "unlink('composer-setup.php');"
 chown -R apache:apache /var/www/html
 chmod -R 775 /var/www/html
 #
+sed -i 's/Require ip 127.0.0.1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf
+sed -i 's/Require ip ::1/#Require ip ::1/g' /etc/httpd/conf.d/phpMyAdmin.conf
+sed -i 's/Deny from All/Allow from All/g' /etc/httpd/conf.d/phpMyAdmin.conf
+sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
+
 yum -y install phpmyadmin
+systemctl restart httpd.service
+
 echo ""
 echo "#################################################"
 echo "     Visit your domain to finish the install     "
