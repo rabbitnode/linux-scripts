@@ -80,7 +80,6 @@ mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE Use
 mysql -e "DROP USER ''@'localhost'"
 mysql -e "DROP USER ''@'$(hostname)'"
 mysql -e "DROP DATABASE test"
-mysql -e "FLUSH PRIVILEGES"
 mysql -e "CREATE USER '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
 mysql -e "CREATE DATABASE '$webmaster_name';"
 mysql -e "GRANT ALL PRIVILEGES ON '$webmaster_name'.* TO '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
