@@ -14,35 +14,35 @@ echo "##########################################"
 echo ""
 #
 read -p 'Set MySQL ROOT Password: ' mysql_password
-if [ $mysql_password != "" ]; then
+if [ $mysql_password == "" ]; then
  echo "[Error]: Please enter a password"
- exit 1
+ read -p 'Set MySQL ROOT Password:: ' mysql_password
 else
-  read -p 'Set MySQL ROOT Password:: ' mysql_password
+ echo "input saved"
 fi
 #
 read -p 'Set Flarum Database username: ' webmaster_user
-if [ $webmaster_user != "" ]; then
+if [ $webmaster_user == "" ]; then
  echo "[Error]: Please enter a username"
- exit 1
+ read -p 'Set Flarum Database username: ' webmaster_user
 else
-  read -p 'Set Flarum Database username: ' webmaster_user
+ echo "input saved"
 fi
 #
 read -p 'Set Flarum Database name: ' webmaster_name
-if [ $webmaster_name != "" ]; then
+if [ $webmaster_name == "" ]; then
  echo "[Error]: Please enter database name"
- exit 1
+ read -p 'Set Flarum Database name: ' webmaster_name
 else
-  read -p 'Set Flarum Database name: ' webmaster_name
+ echo "input saved"
 fi
 #
 read -p 'Set Flarum Database password: ' webmaster_password
-if [ $webmaster_password != "" ]; then
+if [ $webmaster_password == "" ]; then
  echo "[Error]: Please enter a password"
- exit 1
+ read -p 'Set Flarum Database password: ' webmaster_password
 else
-  read -p 'Set Flarum Database password: ' webmaster_password
+ echo "input saved"
 fi
 #
 yum update -y
@@ -111,8 +111,8 @@ echo "      MySQL ROOT password: $mysql_password        "
 echo "=================================================="
 echo "      Database name: $webmaster_name"
 echo "      Database username: $webmaster_user"
-echo "      Database passwor: $webmaster_password"
-echo " Use the information listed above for your website Databse"
+echo "      Database password: $webmaster_password"
+echo " Use the information listed above for your website Database"
 echo "##################################################"
 #
 exit
