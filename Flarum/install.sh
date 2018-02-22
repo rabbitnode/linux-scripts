@@ -44,12 +44,18 @@ yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php
 #
 sudo systemctl start mysqld
 sudo systemctl enable mysqld
+mysql_secure_installation -y
 #
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE User = 'root'"
 mysql -e "DROP USER ''@'localhost'"
 mysql -e "DROP USER ''@'$(hostname)'"
 mysql -e "DROP DATABASE test"
 mysql -e "FLUSH PRIVILEGES"
+#
+mkdir /etc/composer/
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --install-dir=/etc/composer/
+php -r "unlink('composer-setup.php');"
 #
 echo ""
 echo "#################################################"
