@@ -103,6 +103,7 @@ sed -i 's/Deny from All/Allow from All/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 #
 systemctl restart httpd.service
+yum -y install composer
 #
 echo ""
 echo "##################################################"
