@@ -14,7 +14,7 @@ echo "##########################################"
 echo ""
 #
 read -p 'Set MySQL ROOT Password: ' mysql_password
-if [ $mysql_password == "" ]; then
+if [ -z $mysql_password ]; then
  echo "[Error]: Please enter a password"
  read -p 'Set MySQL ROOT Password:: ' mysql_password
 else
@@ -22,7 +22,7 @@ else
 fi
 #
 read -p 'Set Flarum Database username: ' webmaster_user
-if [ $webmaster_user == "" ]; then
+if [ -z $webmaster_user ]; then
  echo "[Error]: Please enter a username"
  read -p 'Set Flarum Database username: ' webmaster_user
 else
@@ -30,7 +30,7 @@ else
 fi
 #
 read -p 'Set Flarum Database name: ' webmaster_name
-if [ $webmaster_name == "" ]; then
+if [ -z $webmaster_name ]; then
  echo "[Error]: Please enter database name"
  read -p 'Set Flarum Database name: ' webmaster_name
 else
@@ -38,7 +38,7 @@ else
 fi
 #
 read -p 'Set Flarum Database password: ' webmaster_password
-if [ $webmaster_password == "" ]; then
+if [ -z $webmaster_password ]; then
  echo "[Error]: Please enter a password"
  read -p 'Set Flarum Database password: ' webmaster_password
 else
