@@ -56,7 +56,10 @@ mkdir /etc/composer/
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --install-dir=/etc/composer/
 php -r "unlink('composer-setup.php');"
+chown -R apache:apache /var/www/html
+chmod -R 775 /var/www/html
 #
+yum -y install phpmyadmin
 echo ""
 echo "#################################################"
 echo "     Visit your domain to finish the install     "
