@@ -9,7 +9,7 @@ echo ""
 echo "##########################################"
 echo "#       Install script for Flarum        #"
 echo "##########################################"
-echo "#           BETA v1.2 centos 7           #"
+echo "#           BETA v1.5 centos 7           #"
 echo "##########################################"
 echo ""
 #
@@ -79,10 +79,10 @@ sudo systemctl enable mysqld
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE User = 'root'"
 mysql -e "DROP USER ''@'localhost'"
 mysql -e "DROP USER ''@'$(hostname)'"
-mysql -e "DROP DATABASE test"
+mysql -e "DROP DATABASE IF EXISTS test"
 mysql -e "CREATE USER '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
-mysql -e "CREATE DATABASE '$webmaster_name';"
-mysql -e "GRANT ALL PRIVILEGES ON '$webmaster_name'.* TO '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
+mysql -e "CREATE DATABASE $webmaster_name;"
+mysql -e "GRANT ALL PRIVILEGES ON $webmaster_name.* TO '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
 mysql -e "FLUSH PRIVILEGES"
 #
 mkdir /etc/composer/
