@@ -16,4 +16,4 @@ Visit your ip/domain and fill out the mysql and admin info
 
 * SSL
 * SMTP Setup
-  
+* Log file
