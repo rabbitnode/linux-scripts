@@ -20,6 +20,12 @@ yum install nano zip unzip wget curl httpd firewalld sudo -y
 systemctl start httpd.service
 systemctl enable httpd.service
 #
+#
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+#
 systemctl start firewalld
 systemcrl enable firewalld
 firewall-cmd --permanent --zone=public --add-service=http
@@ -28,11 +34,7 @@ firewall-cmd --permanent --add-port=22/tcp
 firewall-cmd --permanent --add-port=21/tcp
 firewall-cmd --reload
 #
-yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
-wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-rpm -ivh mysql-community-release-el7-5.noarch.rpm
-#
+
 echo " | "
 echo " / "
 echo " _ "
