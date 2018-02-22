@@ -16,8 +16,7 @@ php composer-setup.php --install-dir=/etc/composer/
 php -r "unlink('composer-setup.php');"
 cd /var/www/html/
 /etc/composer/composer.phar create-project flarum/flarum . --stability=beta
-wget https://files.kingtykari.me/flarum/htaccess
-mv htaccess .htaccess
+wget https://raw.githubusercontent.com/RabbitNode/Scripts/master/Flarum/.htaccess
 chown -R apache:apache /var/www/html
 chmod -R 775 /var/www/html
 service httpd start
