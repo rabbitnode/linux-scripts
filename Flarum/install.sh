@@ -32,8 +32,8 @@ yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.r
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
-systemctl start mysqld.service
-systemctl enable mysqld.service
+systemctl start mysqld
+systemctl enable mysqld
 #
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE User = 'root'"
 mysql -e "DROP USER ''@'localhost'"
