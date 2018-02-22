@@ -14,6 +14,6 @@ Visit your ip/domain and fill out the mysql and admin info
 
 ## 3. Coming soon
 
-  SSL
-  SMTP Setup
+SSL
+SMTP Setup
   
