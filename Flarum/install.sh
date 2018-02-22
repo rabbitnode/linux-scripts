@@ -96,13 +96,14 @@ chown -R apache:apache /var/www/html
 chmod -R 775 /var/www/html
 #
 yum -y install phpmyadmin
-systemctl restart httpd.service
 #
 sed -i 's/Require ip 127.0.0.1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/Require ip ::1/#Require ip ::1/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/Deny from All/Allow from All/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
-
+#
+systemctl restart httpd.service
+#
 echo ""
 echo "##################################################"
 echo "      Visit your domain to finish the install     "
