@@ -15,7 +15,7 @@ echo ""
 read -p 'set MySQL Password: ' mysql_password
 #
 yum update -y
-yum install nano zip unzip wget curl httpd firewalld -y
+yum install nano zip unzip wget curl httpd firewalld sudo -y
 #
 systemctl start httpd.service
 systemctl enable httpd.service
@@ -32,8 +32,15 @@ yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.r
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
-systemctl start mysqld
-systemctl enable mysqld
+#
+echo " | "
+echo " / "
+echo " _ "
+echo " \ "
+echo " | "
+#
+sudo systemctl start mysqld
+sudo systemctl enable mysqld
 #
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('$mysql_password') WHERE User = 'root'"
 mysql -e "DROP USER ''@'localhost'"
