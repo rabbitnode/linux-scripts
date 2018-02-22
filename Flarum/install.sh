@@ -1,30 +1,39 @@
 #!/bin/bash
+echo ""
+echo "  ____       _      ____    ____    ___   _____   _   _    ___    ____    _____ "
+echo " |  _ \     / \    | __ )  | __ )  |_ _| |_   _| | \ | |  / _ \  |  _ \  | ____|"
+echo " | |_) |   / _ \   |  _ \  |  _ \   | |    | |   |  \| | | | | | | | | | |  _|  "
+echo " |  _ <   / ___ \  | |_) | | |_) |  | |    | |   | |\  | | |_| | | |_| | | |___ "
+echo " |_| \_\ /_/   \_\ |____/  |____/  |___|   |_|   |_| \_|  \___/  |____/  |_____|"
+echo ""
+echo "##########################################"
+echo "#       Install script for Flarum        #"
+echo "##########################################"
+echo "#               BETA v0.1                #"
+echo "##########################################"
+echo ""
+read -p 'set MySQL Password: ' mysql_password
+#
 yum update -y
-yum upgrade -y
-yum install wget curl httpd -y
+yum install nano zip unzip wget curl httpd firewalld -y
+#
+systemctl start httpd.service
+systemctl enable httpd.service
+#
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-port=21/tcp
+firewall-cmd --reload
+#
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
-yum update -y
-yum install yum-utils -y
-yum-config-manager --enable remi-php70 -y
-yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php-zip php-fileinfo php-mbstring mysql-server zip unzip -y
-mkdir /etc/composer/
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php --install-dir=/etc/composer/
-php -r "unlink('composer-setup.php');"
-cd /var/www/html/
-/etc/composer/composer.phar create-project flarum/flarum . --stability=beta
-wget https://raw.githubusercontent.com/RabbitNode/Scripts/master/Flarum/.htaccess
-chown -R apache:apache /var/www/html
-chmod -R 775 /var/www/html
-service httpd start
-service mysqld start
-systemctl enable httpd
-systemctl enable mysqld
-mysql_secure_installation
-yum install phpmyadmin
-
- 
-
+#
+echo ""
+echo "################################################"
+echo "#          Flarum has been installed.          #"
+echo "################################################"
+#
+exit
