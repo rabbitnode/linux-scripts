@@ -55,6 +55,9 @@ mkdir /etc/composer/
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --install-dir=/etc/composer/
 php -r "unlink('composer-setup.php');"
+cd /var/www/html/
+/etc/composer/composer.phar create-project flarum/flarum . --stability=beta
+wget https://raw.githubusercontent.com/RabbitNode/Scripts/master/Flarum/.htaccess
 chown -R apache:apache /var/www/html
 chmod -R 775 /var/www/html
 #
