@@ -12,7 +12,38 @@ echo "##########################################"
 echo "#               BETA v0.1                #"
 echo "##########################################"
 echo ""
-read -p 'set MySQL Password: ' mysql_password
+#
+read -p 'Set MySQL ROOT Password: ' mysql_password
+if [ $mysql_password != "" ]; then
+ echo "[Error]: Please enter a password"
+ exit 1
+else
+  read -p 'Set MySQL ROOT Password:: ' mysql_password
+fi
+#
+read -p 'Set Flarum Database username: ' webmaster_user
+if [ $webmaster_user != "" ]; then
+ echo "[Error]: Please enter a username"
+ exit 1
+else
+  read -p 'Set Flarum Database username: ' webmaster_user
+fi
+#
+read -p 'Set Flarum Database name: ' webmaster_name
+if [ $webmaster_name != "" ]; then
+ echo "[Error]: Please enter database name"
+ exit 1
+else
+  read -p 'Set Flarum Database name: ' webmaster_name
+fi
+#
+read -p 'Set Flarum Database password: ' webmaster_password
+if [ $webmaster_password != "" ]; then
+ echo "[Error]: Please enter a password"
+ exit 1
+else
+  read -p 'Set Flarum Database password: ' webmaster_password
+fi
 #
 yum update -y
 yum install nano zip unzip wget curl httpd firewalld sudo sed -y
@@ -50,6 +81,10 @@ mysql -e "DROP USER ''@'localhost'"
 mysql -e "DROP USER ''@'$(hostname)'"
 mysql -e "DROP DATABASE test"
 mysql -e "FLUSH PRIVILEGES"
+mysql -e "CREATE USER '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
+mysql -e "CREATE DATABASE '$webmaster_name';"
+mysql -e "GRANT ALL PRIVILEGES ON '$webmaster_name'.* TO '$webmaster_user'@'localhost' IDENTIFIED BY '$webmaster_password';"
+mysql -e "FLUSH PRIVILEGES"
 #
 mkdir /etc/composer/
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -61,19 +96,23 @@ wget https://raw.githubusercontent.com/RabbitNode/Scripts/master/Flarum/.htacces
 chown -R apache:apache /var/www/html
 chmod -R 775 /var/www/html
 #
+yum -y install phpmyadmin
+systemctl restart httpd.service
+#
 sed -i 's/Require ip 127.0.0.1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/Require ip ::1/#Require ip ::1/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/Deny from All/Allow from All/g' /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
-yum -y install phpmyadmin
-systemctl restart httpd.service
-
 echo ""
-echo "#################################################"
-echo "     Visit your domain to finish the install     "
-echo "     MySQL rootuser: root                        "
-echo "     MySQL password: $mysql_password             "
-echo "#################################################"
+echo "##################################################"
+echo "      Visit your domain to finish the install     "
+echo "      MySQL ROOT password: $mysql_password        "
+echo "=================================================="
+echo "      Database name: $webmaster_name"
+echo "      Database username: $webmaster_user"
+echo "      Database passwor: $webmaster_password"
+echo " Use the information listed above for your website Databse"
+echo "##################################################"
 #
 exit
