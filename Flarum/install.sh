@@ -121,8 +121,10 @@ sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 systemctl restart httpd.service
 yum -y install composer
 #
-certbot --apache  --quiet --agree-tos --email "${letsencrypt_email}" \
---domain "${website_url}" --rsa-key-size 4096
+certbot certonly  --quiet --agree-tos --email "${letsencrypt_email}" \
+" --rsa-key-size 4096  --webroot \
+--webroot-path "/var/www/html" --domain "${website_url}
+
 echo ""
 echo "##################################################"
 echo "      Visit your domain to finish the install     "
