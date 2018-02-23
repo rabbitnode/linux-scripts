@@ -45,6 +45,22 @@ else
  echo "input saved"
 fi
 #
+read -p 'Set letsencrypt email: ' letsencrypt_email
+if [ -z $letsencrypt_email ]; then
+ echo "[Error]: please enter a email address"
+ read -p 'Set letsencrypt email:: ' letsencrypt_email
+else
+ echo "input saved"
+fi
+#
+read -p 'enter website url: ' website_url
+if [ -z $website_url ]; then
+ echo "[Error]: Please enter the website url"
+ read -p 'enter website url: ' website_url
+else
+ echo "input saved"
+fi
+#
 yum update -y
 yum install nano zip unzip wget curl httpd firewalld sudo sed -y
 #
@@ -105,6 +121,8 @@ sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 systemctl restart httpd.service
 yum -y install composer
 #
+certbot --apache  --quiet --agree-tos --email "${letsencrypt_email}" \
+--domain "${website_url}" --rsa-key-size 4096
 echo ""
 echo "##################################################"
 echo "      Visit your domain to finish the install     "
