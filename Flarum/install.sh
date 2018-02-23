@@ -74,7 +74,7 @@ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 #
 systemctl start firewalld
-systemcrl enable firewalld
+systemctl enable firewalld
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --permanent --add-port=22/tcp
