@@ -87,7 +87,7 @@ yum -y install php
 yum-config-manager --enable remi-php71
 systemctl restart httpd.service
 #
-yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php-zip php-fileinfo php-mbstring mysql-server -y
+yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php-zip php-fileinfo php-mbstring mysql-server certbot-apache -y
 #
 sudo systemctl start mysqld
 sudo systemctl enable mysqld
