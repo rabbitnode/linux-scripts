@@ -45,6 +45,22 @@ else
  echo "input saved"
 fi
 #
+read -p 'Set letsencrypt email: ' letsencrypt_email
+if [ -z $letsencrypt_email ]; then
+ echo "[Error]: please enter a email address"
+ read -p 'Set letsencrypt email:: ' letsencrypt_email
+else
+ echo "input saved"
+fi
+#
+read -p 'enter website url: ' website_url
+if [ -z $website_url ]; then
+ echo "[Error]: Please enter the website url"
+ read -p 'enter website url: ' website_url
+else
+ echo "input saved"
+fi
+#
 yum update -y
 yum install nano zip unzip wget curl httpd firewalld sudo sed -y
 #
@@ -58,7 +74,7 @@ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 #
 systemctl start firewalld
-systemcrl enable firewalld
+systemctl enable firewalld
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --permanent --add-port=22/tcp
@@ -71,7 +87,7 @@ yum -y install php
 yum-config-manager --enable remi-php71
 systemctl restart httpd.service
 #
-yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php-zip php-fileinfo php-mbstring mysql-server -y
+yum -y install php-mcrypt php-cli php-gd php-curl php-mysql php-dom php-ldap php-zip php-fileinfo php-mbstring mysql-server certbot-apache -y
 #
 sudo systemctl start mysqld
 sudo systemctl enable mysqld
@@ -105,6 +121,10 @@ sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 systemctl restart httpd.service
 yum -y install composer
 #
+certbot certonly  --quiet --agree-tos --email "${letsencrypt_email}" \
+" --rsa-key-size 4096  --webroot \
+--webroot-path "/var/www/html" --domain "${website_url}
+
 echo ""
 echo "##################################################"
 echo "      Visit your domain to finish the install     "
