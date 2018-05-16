@@ -11,6 +11,8 @@ cd /etc/systemd/system/
 wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/master/nodebb/nodnodebb.service
 systemctl start redis
 systemctl enable redis
+adduser nodebb
+passwd -f -u nodebb
 mkdir /etc/nodebb/
 cd /etc/nodebb/
 git clone -b v1.7.x https://github.com/NodeBB/NodeBB nodebb
