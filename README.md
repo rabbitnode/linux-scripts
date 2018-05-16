@@ -2,8 +2,8 @@
 Install scripts for various applications
 
 ## Finished
-* Flarum (non SSL)
-
+* Flarum (SSL)
+* NodeBB (service included)
 ## License
 
 MIT
