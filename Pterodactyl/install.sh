@@ -19,3 +19,22 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 cp .env.example .env
 composer install --no-dev
 chown -R www-data:www-data *
+read -p "Continue (y/n)?" CONT
+if [ "$CONT" = "y" ]; then
+echo "Dameon Files will now be installed";
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce
+systemctl enable docker
+systemctl start docker
+curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+yum install -y tar unzip make gcc gcc-c++ python
+yum install -y nodejs
+mkdir -p /srv/daemon /srv/daemon-data
+cd /srv/daemon
+curl -Lo daemon.tar.gz https://github.com/pterodactyl/daemon/releases/download/v0.5.5/daemon.tar.gz
+tar --strip-components=1 -xzvf daemon.tar.gz
+npm install --only=production
+cd /etc/systemd/system/
+exit
+fi
