@@ -73,21 +73,28 @@ php artisan p:environment:database
 read -p "Continue (y/n)?" CONT
 if [ "$CONT" = "y" ]; then
 echo "Dameon Files will now be installed";
-yum install -y yum-utils device-mapper-persistent-data lvm2
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install -y docker-ce
+apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+	add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+apt-get update
+apt-get install docker-ce
 systemctl enable docker
 systemctl start docker
-cd /root/
-curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-yum install -y tar unzip make gcc gcc-c++ python
-yum install -y nodejs
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+apt -y install nodejs
+apt -y install tar unzip make gcc g++ python
 mkdir -p /srv/daemon /srv/daemon-data
 cd /srv/daemon
 curl -Lo daemon.tar.gz https://github.com/pterodactyl/daemon/releases/download/v0.5.5/daemon.tar.gz
 tar --strip-components=1 -xzvf daemon.tar.gz
 npm install --only=production
 cd /etc/systemd/system/
-https://raw.githubusercontent.com/rabbitnode/linux-scripts/Pterodactyl/wings.service
+wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/Pterodactyl/wings.service
 exit
 fi
