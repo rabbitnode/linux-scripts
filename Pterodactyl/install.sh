@@ -17,7 +17,7 @@ else
  echo "input saved"
 fi
 #
-read -p 'Set Flarum Database username: ' webmaster_user
+read -p 'Set Pterodactyl Database username: ' webmaster_user
 if [ -z $webmaster_user ]; then
  echo "[Error]: Please enter a username"
  read -p 'Set panel Database username: ' webmaster_user
@@ -25,7 +25,7 @@ else
  echo "input saved"
 fi
 #
-read -p 'Set Flarum Database name: ' webmaster_name
+read -p 'Set Pterodactyl Database name: ' webmaster_name
 if [ -z $webmaster_name ]; then
  echo "[Error]: Please enter database name"
  read -p 'Set panel Database name: ' webmaster_name
