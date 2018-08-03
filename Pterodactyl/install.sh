@@ -1,7 +1,7 @@
 # Add "add-apt-repository" command
 apt-get -y install software-properties-common
 # Add additional repositories for PHP, Redis, and MariaDB
-add-apt-repository -y ppa:ondrej/php
+LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:chris-lea/redis-server
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 # Update repositories list
@@ -44,9 +44,9 @@ fi
 mkdir -p /var/www/html/pterodactyl
 cd /var/www/html/pterodactyl
 # panel files install
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.6/panel.tar.gz
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.9/panel.tar.gz
 tar --strip-components=1 -xzvf panel.tar.gz
-chmod -R 755 storage/* bootstrap/cache
+chmod -R 755 storage/* bootstrap/cache/
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 cp .env.example .env
 composer install --no-dev
@@ -54,6 +54,8 @@ chown -R www-data:www-data *
 cd /etc/nginx/sites-available/
 wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/Pterodactyl/pterodactyl.conf
 ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/pterodactyl.conf
+rm -rf /etc/nginx/sites-available/default.conf
+rm -rf /etc/nginx/sites-enabled/default.conf
 cd /etc/systemd/system/
 wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/Pterodactyl/pteroq.service
 systemctl enable pteroq.service
@@ -91,7 +93,7 @@ apt -y install nodejs
 apt -y install tar unzip make gcc g++ python
 mkdir -p /srv/daemon /srv/daemon-data
 cd /srv/daemon
-curl -Lo daemon.tar.gz https://github.com/pterodactyl/daemon/releases/download/v0.5.5/daemon.tar.gz
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.5.6/daemon.tar.gz | tar --strip-components=1 -xzv
 tar --strip-components=1 -xzvf daemon.tar.gz
 npm install --only=production
 cd /etc/systemd/system/
