@@ -1,0 +1,1 @@
+These install scripts are to be injunction with the tutorial on our help page at https://help.rabbitnode.com/en/article/multicraft-installation-on-linux-1rup2kw/
