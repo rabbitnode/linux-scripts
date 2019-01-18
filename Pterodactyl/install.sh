@@ -97,6 +97,6 @@ curl -L https://github.com/pterodactyl/daemon/releases/download/v0.5.6/daemon.ta
 tar --strip-components=1 -xzvf daemon.tar.gz
 npm install --only=production
 cd /etc/systemd/system/
-wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/Pterodactyl/wings.service
+wget https://raw.githubusercontent.com/rabbitnode/linux-scripts/master/Pterodactyl/wings.service
 exit
 fi
